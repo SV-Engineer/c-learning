@@ -83,17 +83,19 @@ The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C
 
   2. From the command line, navigate to the src directory. The source directory will be different for everyone, depending on where the reader has cloned it. The windows command `cd`[^7] will be used here. It is reasonable to open the windows file explorer and navigate to the src folder and copy-paste from the address bar. For the author, the command[^8] looks like:
 
-    `cd /d N:\Development\c-learning\src`
+  `cd /d N:\Development\c-learning\src`
 
   3. The `cd` command can also show you your current directory (Windows not Linux). Try `cd` on the command line to verify the command prompt is in the correct place. The `dir` command shows the contents of the directory you are located. Try `dir` now. At minimum this command should output at the end "1 File\(s\)" and "2 Dir\(s\)".[^9] One of those files in the list should be HelloWorld.c
 
   4. To compile the HelloWorld.c file, we will now invoke the compiler with the command:
 
-    `gcc HelloWorld.c -o hello.exe`
+  `gcc HelloWorld.c -o hello.exe`
 
   5. In the same directory there should now be a file called "hello.exe" \(The `dir` command can help\) and you can invoke that from the command line as well by typing `hello.exe`. The output should look like: "Hello World!".
 
-  6. Lastly it is now safe to remove the executable or exe file with the command: `del hello.exe`.
+  6. Lastly it is now safe to remove the executable or exe file with the command:
+
+  `del hello.exe`.
 
 # Footnotes
 [^1]: You may uncheck the start menu and desktop shortcut creation options circled in red. You likely will not use those shortcuts if created.
