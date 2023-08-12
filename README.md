@@ -1,5 +1,5 @@
 # c-learning
-This repository is used to create a personal reference of more advanced C concepts; starting from the base axioms.
+This repository is used to create a personal reference of more advanced C concepts; starting from the base axioms. The tutorials below assume basic knowledge of git. Please refer to a git tutorial via youtube or the official [git documentation](https://docs.github.com/en/get-started/quickstart).
 
 # Getting Started
 ## Compiler Installation for Windows 10
@@ -27,11 +27,6 @@ This repository is used to create a personal reference of more advanced C concep
   > gcc version x.x.x (MinGW.org GCC-x.x.x-x)[^4]
 
 9. To complete setup, we must add the gcc compiler to the [path](#mingw-adding-to-path) environment variable.
-
-[^1]: You may uncheck the start menu and desktop shortcut creation options circled in red. You likely will not use those shortcuts if created.
-[^2]: Sometimes pronounced as an acronym G.U.I. and sometimes pronounced as a word "gooey".
-[^3]: In the referenced image, the tick boxes for "mingw32-base" and "mingw32-gcc-g++" are green. If you do **not** want to install c++ then do not select the second item "mingw32-gcc-g++."
-[^4]: Where the 'x' character is replaced by numbers.
 
 ## Compiler Installation Reference Images
 ### Mingw Splash Screen
@@ -77,9 +72,36 @@ This repository is used to create a personal reference of more advanced C concep
 
 <div style="page-break-after: always"></div>
 
-## Compilation via command line
+## Compilation Via Command Line
+Open the command line by pressing the windows key <kbd>Windows</kbd>, typing "cmd" and pressing "Enter" <kbd>Return</kbd>.
 
-### Tool invocation
-The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C++[^5].
+### Tool Invocation
+The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C++[^5]. Using the command line on any OS \(Operating System\) is a powerful tool and if you aren't familiar with it, it may be a good idea to learn more. If you want to learn more about the Windows command line, please refer to its [documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands). To see a list inputs \(A.K.A switches\) try typing `gcc --help` to see the options available.
 
-[^5]: From here on out, C++'s existence will be ignored as that languages features go beyond the scope of this repository's purpose.
+### Compiling your first C file
+  1. This repository contains a directory called "src" which is short hand for source. Located in that directory is a file called "HelloWorld.c".[^6]
+
+  2. From the command line, navigate to the src directory. The source directory will be different for everyone, depending on where the reader has cloned it. The windows command `cd`[^7] will be used here. It is reasonable to open the windows file explorer and navigate to the src folder and copy-paste from the address bar. For the author, the command looks like:
+
+    `cd /d N:\Development\c-learning\src`[^8]
+
+  3. The `cd` command can also show you your current directory (Windows not Linux). Try `cd` on the command line to verify the command prompt is in the correct place. The `dir` command shows the contents of the directory you are located. Try `dir` now. At minimum this command should output at the end "1 File\(s\)" and "2 Dir\(s\)".[^9] One of those files in the list should be HelloWorld.c
+
+  4. To compile the HelloWorld.c file, we will now invoke the compiler with the command:
+
+    `gcc HelloWorld.c -o hello.exe`
+
+  5. In the same directory there should now be a file called "hello.exe" \(The `dir` command can help\) and you can invoke that from the command line as well by typing `hello.exe`. The output should look like: "Hello World!".
+
+  6. Lastly it is now safe to remove the executable or exe file with the command: `del hello.exe`.
+
+# Footnotes
+[^1]: You may uncheck the start menu and desktop shortcut creation options circled in red. You likely will not use those shortcuts if created.
+[^2]: Sometimes pronounced as an acronym G.U.I. and sometimes pronounced as a word "gooey".
+[^3]: In the referenced image, the tick boxes for "mingw32-base" and "mingw32-gcc-g++" are green. If you do **not** want to install c++ then do not select the second item "mingw32-gcc-g++."
+[^4]: Where the 'x' character is replaced by numbers.
+[^5]: From here on out, C++'s existence will be ignored as that languages' features go beyond the scope of this repository's purpose.
+[^6]: Note that the file name does not contain spaces. While most OS's provide support for spaces in folder names and files names, when dealing with coding of any form, it is best to use no spaces in the naming convention you choose. This [blog](https://cscareerline.com/camel-case-vs-snake-case/) found with a cursory google search seems to do an okay job of explaining the two currently most popular naming conventions.
+[^7]: `cd` is the command for change directory.
+[^8]: Note that the \/d option was provided because the repository is not located on the same disc as the Author's OS.
+[^9]: Notice that 1 directory is called '.' and another is called '..'. These represent the current directory and the parent directory respectively.
