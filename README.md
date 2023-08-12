@@ -76,14 +76,14 @@ This repository is used to create a personal reference of more advanced C concep
 Open the command line by pressing the windows key <kbd>Windows</kbd>, typing "cmd" and pressing "Enter" <kbd>Return</kbd>.
 
 ### Tool Invocation
-The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C++[^5]. Using the command line on any OS \(Operating System\) is a powerful tool and if you aren't familiar with it, it may be a good idea to learn more. If you want to learn more about the Windows command line, please refer to its [documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands). To see a list inputs \(A.K.A switches\) try typing `gcc --help` to see the options available.
+The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C++[^5]. Using the command line on any OS \(Operating System\) is a powerful tool and if you aren't familiar with it, it may be a good idea to learn more. If you want to learn more about the Windows command line, please refer to its [documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands). To see a list of inputs \(A.K.A switches\) try typing `gcc --help` to see the options available.
 
 ### Compiling your first C file
   1. This repository contains a directory called "src" which is short hand for source. Located in that directory is a file called "HelloWorld.c".[^6]
 
-  2. From the command line, navigate to the src directory. The source directory will be different for everyone, depending on where the reader has cloned it. The windows command `cd`[^7] will be used here. It is reasonable to open the windows file explorer and navigate to the src folder and copy-paste from the address bar. For the author, the command looks like:
+  2. From the command line, navigate to the src directory. The source directory will be different for everyone, depending on where the reader has cloned it. The windows command `cd`[^7] will be used here. It is reasonable to open the windows file explorer and navigate to the src folder and copy-paste from the address bar. For the author, the command[^8] looks like:
 
-    `cd /d N:\Development\c-learning\src`[^8]
+    `cd /d N:\Development\c-learning\src`
 
   3. The `cd` command can also show you your current directory (Windows not Linux). Try `cd` on the command line to verify the command prompt is in the correct place. The `dir` command shows the contents of the directory you are located. Try `dir` now. At minimum this command should output at the end "1 File\(s\)" and "2 Dir\(s\)".[^9] One of those files in the list should be HelloWorld.c
 
