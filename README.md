@@ -34,13 +34,11 @@ This repository is used to create a personal reference of more advanced C concep
 [^4]: Where the 'x' character is replaced by numbers.
 
 ## Compiler Installation Reference Images
-### Markdown Style
+### Mingw Splash Screen
 ![mingw_splash](./resources/mingw/mingw_splash.PNG)
-![mingw_install_choices](./resources/mingw/mingw_install_choices.PNG)
 
-### HTML Style
-<img style="float: center;" src="./resources/mingw/mingw_splash.PNG">
-<img style="float: center;" src="./resources/mingw/mingw_install_choices.PNG">
+### Mingw Install Choices
+![mingw_install_choices](./resources/mingw/mingw_install_choices.PNG)
 
 ### MinGW Installation Manager
 ![mingw_install_mgr_prim](./resources/mingw/mingw_installation_manager_primary.PNG)
@@ -50,6 +48,8 @@ This repository is used to create a personal reference of more advanced C concep
 
 ### MinGW Installing Selected Items
 ![mingw_install_selected](./resources/mingw/install_selected.PNG)
+
+<div style="page-break-after: always"></div>
 
 ## MinGW Adding To Path
 1. Press the windows key <kbd>Windows</kbd> and select the first option that comes up when `environment` is entered into the search bar.
@@ -75,4 +75,11 @@ This repository is used to create a personal reference of more advanced C concep
 
 9. If you see the same output as before when the compiler installation was initially verified, then you are done with compiler installation and setup.
 
+<div style="page-break-after: always"></div>
+
 ## Compilation via command line
+
+### Tool invocation
+The gcc compiler can be invoked with the command `gcc` or `g++` in the case of C++[^5].
+
+[^5]: From here on out, C++'s existence will be ignored as that languages features go beyond the scope of this repository's purpose.
