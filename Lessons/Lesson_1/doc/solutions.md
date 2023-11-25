@@ -5,7 +5,7 @@
 |----------------------------|--------------------------------------------------------|
 | **compile-time** | When invoking the command `gcc`, the compiler activates and reads your code. It then turns your code into instructions that the computer can understand. The duration in which this process takes places is called **compile-time**|
 | **run-time** | When calling the executable produced by invoking the `gcc` command, the computer takes the instructions that the compiler put together and performs the provided operations. The duration for which this occurs is called **run-time**|
-| **MSB** | Most Significant Bit; the highest indexed bit in the vector that represents a binary number. Indexing starts at 0. A 32-bit number has a **MSB** or bit31. A 16-bit number has a **MSB** of bit15. |
+| **MSB** | Most Significant Bit; the highest indexed bit in the vector that represents a binary number. Indexing starts at 0. A 32-bit number has a **MSB** of bit31. A 16-bit number has a **MSB** of bit15. |
 
 ## Practice
 ### Practice 1 Question
@@ -22,8 +22,8 @@ Modify the example1.c file to declare the variable `A` with an initial value of 
 This behavior is due to how the computer treats negative numbers. It is known as two's complement. A short rundown is that numbers are composed of binary values stored in a sort of vector where each entry in the vector is a bit and each bit can only be 1 or 0. (This is where 2 raised to a power comes from). The signed number could look like as follows:
 
 |  S | 30 | 29 | 28 | 27 | 26 | 25 | 24 | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
-------------------------------------------------------------------------------------------------
-| 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 0 | 1 | 0 | 1 | 01|
 
 The **MSB** of the number represents the sign. Where a 1 is negative and a 0 is positive. The rest of the bits are the magnitude; the value of the number. To find the negation of a number, 2's complement definition tells us to make all the 0's in the number a 1 and all the 1's in the number a 0.
 
