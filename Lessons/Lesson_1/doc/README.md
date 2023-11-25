@@ -21,7 +21,7 @@ int main (int argc, char** argv)
 
 In this code block, let us focus on the line `int A = 0;` what does this mean? This is the standard format for declaring a variable of type `int` in the C language. 
 
-The `int` portion is telling the compiler that the variable is an `integer` or `int` type. What is the `integer` type? It is a 32-bit signed number that can represent to the computer positive and negative numbers. The domain of an `int` type is [-32768, 32767] or [-2<sup>15</sup>, 2<sup>15</sup> - 1]. More on why this is coming in future lessons. Just know that the limitation exists for now.
+The `int` portion is telling the compiler that the variable is an `integer` or `int` type. What is the `integer` type? It is a 32-bit signed number that can represent to the computer positive and negative numbers. The domain of an `int` type is [-32768, 32767] or [-2<sup>15</sup>, 2<sup>15</sup> - 1]. More on why this is, is coming in future lessons. Just know that the limitation exists for now. From the standard integer header file, `stdint.h`, this has equivalency to int32_t. When you see this nomenclature, know they can be substituted for one another.
 
 The `A` portion is the user defined name of the variable. The name of a variable could be anything. It is best practice to give variables meaningful names so that the code is readable later to yourself and others. In this example `A` is not a descriptive name because it is not obvious from the name what it is intended for. More on this in the next section.
 
@@ -53,3 +53,14 @@ int main (int argc, char** argv)
 
 In this code block, let us focus on the line `unsinged int A = 0;` what does this mean? This is the standard format for declaring a variable of type `unsigned int` in the C language.
 
+The `unsigned int` portion is telling the compiler that the variable is an `unsigned integer` or `unsigned int` type. What is the `unsigned integer` type? It is a 32-bit unsigned number that can represent to the computer positive numbers only; negative numbers do not exist for this data type. The domain of an `unsigned int` type is [0, 65536] or [0, 2<sup>16</sup>]. More on why this is, is coming in future lessons. Just know that the limitation exists for now. From the standard integer header file, `stdint.h`, this has equivalency to uint32_t. When you see this nomenclature, know they can be substituted for one another.
+
+The rest of the explanation is the same from Example 1. The only difference between `int` and `unsigned int` is the domain of values they can represent.
+
+## Practice
+1. Modify the example1.c file to declare the variable `A` without an initial value (delete the "= 0" portion). Compile and run the output with `gcc L1_example.c -o practice1.exe` then `practive1.exe`. What is the output? Run it twice more. Was the output the same each time? (More on why in the solutions.md file).
+
+2. Modify the example1.c file to declare the variable `A` with an initial value of 65536. Compile and run the output with `gcc L1_example.c -o practice2.exe` then `practice2.exe`. Is the output what you expected? (More on why in the solutions.md file).
+
+3. Modify the example1.c file to declare the variable `UA` with an initial value of -1. Compile and run the output with `gcc L1_example.c -o practice3.exe` then `practice3.exe`. What is the output here? (More on why in the solutions.md file).
+ 
