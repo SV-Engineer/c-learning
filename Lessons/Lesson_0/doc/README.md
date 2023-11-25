@@ -20,3 +20,13 @@
   git pull origin master
   ```
 Just make sure you run that command on a terminal that has the top level directory of this repository open.
+
+## Compilation From The Command Line
+1. Change directory to C-Learning/Lessons/Lesson_0/src
+2. Use the following command:
+  ```
+  gcc HelloWorld.c -o HelloWorld.exe
+  ```
+3. Once compilation is successful, try running the command `HelloWorld.exe`
+4. If the console outputs "Hello World!" then you have completed this lesson.
+5. Move on to Lesson_1
