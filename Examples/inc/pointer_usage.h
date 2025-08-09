@@ -10,7 +10,7 @@
   #include <stdint.h>
   #include <string.h>
 
-  void pointer_abuse(uint8_t*);
+  void pointer_abuse(void);
   void p_abuse_call_back(void);
 
 #endif /* POINTER_USAGE_H_ */

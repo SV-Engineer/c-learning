@@ -4,37 +4,26 @@
  * 
  */
 
-#include "pointer_usage.h"
+#include "../inc/pointer_usage.h"
 
-/** @fn void pointer_abuse(uint8_t* data_ptr)
+
+/// @brief S - String.
+#define DO_INFO(S, ...)           printf("INFO - %s", S, __VA_ARGS__)
+
+/** @fn void pointer_abuse()
  * @brief Just for funsies
  * 
  */
-void pointer_abuse(uint8_t* data_ptr)
+void pointer_abuse(void)
 {
-  char info[1000];
+  uint8_t* values[5];
 
-
-  uint8_t** const pptr = (uint8_t**) &data_ptr;
-
-  // TODO: come back and recall the correct and modern way of string handling.
-  memset(info, 0, sizeof(info));
-  sprintf((char*) info, "INFO - Double pointer address is: 0x%08x.\n", pptr);
-  printf(info);
-
-  memset(info, 0, sizeof(info));
-  sprintf((char*) info, "INFO - Double pointer points to pointer at address: 0x%08x.\n", *pptr);
-  printf(info);
-
-  memset(info, 0, sizeof(info));
-  sprintf((char*) info, "INFO - Data at pointer is: 0x%02x -- Compare to data from original pointer: 0x%02x.\n", **pptr, *data_ptr);
-  printf(info);
+  DO_INFO("Testings %08x\n", 55);
+  // for (uint8_t** i = pptr; )
 
 }
 
 void p_abuse_call_back(void)
 {
-  uint8_t d = (uint8_t) 0xA5;
-
-  pointer_abuse((uint8_t*) &d);
+  pointer_abuse();
 }

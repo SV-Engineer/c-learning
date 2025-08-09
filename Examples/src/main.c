@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-#include "pointer_usage.h"
+#include "../inc/pointer_usage.h"
 
 int main (int argc, char* argv[])
 {
