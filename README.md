@@ -14,5 +14,9 @@ Go to: https://cmake.org/download/ and install it. This one is easier than mingw
   3. `mingw32-make`
   4. Run the resultant executable.
 
-# Recursion
-See file `recursion_with_switch_statements.c`
+# Topics
+## Recursion
+See file `recursion_with_switch_statements.h` and its source.
+
+## Pointers
+See file `pointer_usage.h` and it's source.
