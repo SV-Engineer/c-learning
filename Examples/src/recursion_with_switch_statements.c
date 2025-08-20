@@ -9,8 +9,6 @@
 #include "log.h"
 #include "recursion_with_switch_statements.h"
 
-#define UPPER_TO_LOWER_DIFF      (((uint8_t) 'a') - ((uint8_t) 'A'))
-
 static __inline int __to_upper(char* c) {
   if (((uint8_t) (*c)) >= 'a' && ((uint8_t) (*c)) <= 'z') {
     *c = (char) (((uint8_t) *c) - UPPER_TO_LOWER_DIFF);

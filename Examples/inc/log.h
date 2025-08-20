@@ -5,6 +5,9 @@
   #include <stdio.h>
   #include <string.h>
 
+  //! @brief Constant to subtract from a lower case ASCII character to make an upper case.
+  #define UPPER_TO_LOWER_DIFF      (((uint8_t) 'a') - ((uint8_t) 'A'))
+
   /// @brief Delineation in logging
   #define DELINEATE     printf("=================================================================\n")
 
