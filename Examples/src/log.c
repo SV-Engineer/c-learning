@@ -4,83 +4,103 @@
  *
  */
 
-// #include "log.h"
+#include "log.h"
 
-// const char* LOG_INFORMATION            "INFORMATION     --  ";
-// const char* LOG_WARNING                "!WARNING        --  ";
-// const char* LOG_ERROR_SOFT             "!ERROR_SOFT     --  ";
-// const char* LOG_ERROR_CRITICAL         "!ERROR_CRITICAL --  ";
+const char* LOG_INFORMATION            = "INFORMATION     --  ";
+const char* LOG_WARNING                = "!WARNING        --  ";
+const char* LOG_ERROR_SOFT             = "!ERROR_SOFT     --  ";
+const char* LOG_ERROR_CRITICAL         = "!ERROR_CRITICAL --  ";
 
-// // Forward declarations
-// static void __log_information(log_t* log, const char* data);
-// static void __log_warning(log_t* log, const char* data);
-// static void __log_soft_error(log_t* log, const char* data);
-// static void __log_critical_error(log_t* log, const char* data);
+// Forward declarations
+static void __log_information(log_t* log, const char* data);
+static void __log_warning(log_t* log, const char* data);
+static void __log_soft_error(log_t* log, const char* data);
+static void __log_critical_error(log_t* log, const char* data);
 
-// /** @fn log_t* initialize_logger(const char* name)
-//  * @brief Creates a logger.
-//  *
-//  * @param name
-//  * A null terminated character array of length @ref LOG_NAME_MAX_LENGTH
-//  *
-//  * @return NULL
-//  * Failure to malloc or bad name provided
-//  *
-//  * @return log_t*
-//  * A data structure that exists to logger with provided name.
-//  */
-// log_t* initialize_logger(const char* name) {
-//   log_t* log = (log_t*) malloc(sizeof(log_t));
+// Need to make sure the logging works.
+#ifdef RUN==3
+  int run(void) {
+    const char* MODULE_NAME = "RUN3\0";
+    log_t* log = initialize_logger(MODULE_NAME);
 
-//   (void) memset(&(log->name), 0, LOG_NAME_MAX_LENGTH);
+    if (log != NULL) {
+      printf("log was NOT NULL\n");
+      delete_logger(log);
+    }
 
-//   // Check for NULL terminator first so the "else-if" printf statement doesn't break.
-//   if (name[LOG_NAME_MAX_LENGTH-1] != '\0') {
-//     printf("%sProvided name is not terminated with NULL: '\\0'\n\0",     LOG_ERROR_SOFT);
-//     delete_logger(log);
-//   }
+    else {
+      printf("Log was NULL\n");
+    }
 
-//   else if (log == NULL) {
-//     printf("%sHeap Space unavailable to allocate log with name: %s\n\0", LOG_ERROR_CRITICAL, name);
-//   }
+    return 0;
+  }
+#endif
 
-//   else {
-//     printf("%sProvided name is valid and memory is allocated\n\0",       LOG_INFORMATION);
-//     strcpy(log->name, name);
-//     log->INFORMATION = (log_function_ptr_t) &__log_information;
-//     log->INFORMATION = (log_function_ptr_t) &__log_warning;
-//     log->INFORMATION = (log_function_ptr_t) &__log_soft_error;
-//     log->INFORMATION = (log_function_ptr_t) &__log_critical_error;
-//   }
 
-//   return log;
-// }
+/** @fn log_t* initialize_logger(const char* name)
+ * @brief Creates a logger.
+ *
+ * @param name
+ * A null terminated character array of length @ref LOG_NAME_MAX_LENGTH
+ *
+ * @return NULL
+ * Failure to malloc or bad name provided
+ *
+ * @return log_t*
+ * A data structure that exists to logger with provided name.
+ */
+log_t* initialize_logger(const char* name) {
+  log_t* log = (log_t*) malloc(sizeof(log_t));
 
-// /** @fn void delete_logger(log_t log)
-//  * @brief Deletes a logger
-//  *
-//  * @param log
-//  * A heap allocated logger
-//  *
-//  * @return void
-//  */
-// static void delete_logger(log_t* log) {
-//   free(log);
-//   log = NULL;
-// }
+  (void) memset((void*) &(log->name), 0, LOG_NAME_MAX_LENGTH);
 
-// static void __log_information(log_t* log, const char* data) {
-//   printf("TODO: INFO")
-// }
+  // Check for NULL terminator first so the "else-if" printf statement doesn't break.
+  if (name[LOG_NAME_MAX_LENGTH-1] != '\0') {
+    printf("%sProvided name is not terminated with NULL: '\\0'\n",     LOG_ERROR_SOFT);
+    delete_logger(log);
+  }
 
-// static void __log_warning(log_t* log, const char* data) {
-//   printf("TODO: WARN")
-// }
+  else if (log == NULL) {
+    printf("%sHeap Space unavailable to allocate log with name: %s\n", LOG_ERROR_CRITICAL, name);
+  }
 
-// static void __log_soft_error(log_t* log, const char* data) {
-//   printf("TODO: SE")
-// }
+  else {
+    printf("%sProvided name is valid and memory is allocated\n",       LOG_INFORMATION);
+    strcpy((char*) &(log->name), name);
+    log->INFORMATION = (log_function_ptr_t) &__log_information;
+    log->INFORMATION = (log_function_ptr_t) &__log_warning;
+    log->INFORMATION = (log_function_ptr_t) &__log_soft_error;
+    log->INFORMATION = (log_function_ptr_t) &__log_critical_error;
+  }
 
-// static void __log_critical_error(log_t* log, const char* data) {
-//   printf("TODO: CE")
-// }
+  return log;
+}
+
+/** @fn void delete_logger(log_t log)
+ * @brief Deletes a logger
+ *
+ * @param log
+ * A heap allocated logger
+ *
+ * @return void
+ */
+void delete_logger(log_t* log) {
+  free(log);
+  log = NULL;
+}
+
+static void __log_information(log_t* log, const char* data) {
+  printf("TODO: INFO");
+}
+
+static void __log_warning(log_t* log, const char* data) {
+  printf("TODO: WARN");
+}
+
+static void __log_soft_error(log_t* log, const char* data) {
+  printf("TODO: SE");
+}
+
+static void __log_critical_error(log_t* log, const char* data) {
+  printf("TODO: CE");
+}

@@ -6,6 +6,7 @@
 
 #ifndef LOG_H_
   #define LOG_H_
+  #include <stdlib.h>
   #include <stdio.h>
   #include <string.h>
   #include <stdint.h>
@@ -42,6 +43,6 @@
 
 
   log_t* initialize_logger(const char* name);
-  void   delete_logger(log_t log);
+  void   delete_logger(log_t* log);
 
 #endif /* LOG_H_ */
