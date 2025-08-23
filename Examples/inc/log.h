@@ -43,6 +43,6 @@
 
 
   log_t* initialize_logger(const char* name);
-  void   delete_logger(log_t* log);
+  void   delete_all_logger_instances(log_t* log);
 
 #endif /* LOG_H_ */
