@@ -1,9 +1,9 @@
 # c-learning
 ## Description
-This repository is used to create a personal reference of more advanced C concepts; starting from the base axioms. The tutorials below assume basic knowledge of git. Please refer to a git tutorial via youtube or the official [git documentation](https://docs.github.com/en/get-started/quickstart).
+This repository is used to create a personal reference of more advanced C concepts; starting from the base axioms. The tutorials below assume basic knowledge of git. Please refer to a git tutorial via youtube or the official [git documentation](https://docs.github.com/en/get-started/quickstart). The CLI used is git bash. While the insturctions here in some cases may work with windows CLI or power-shell, it is expected that most will not without some amount of translation.
 
 ## Disclaimer
-The point of this repository is to doucument and create examples. The use of CMAKE is a "quick-and-dirty" setup because learning that tool extensively is not the main point of this repository. Furthermore the logging found in `log.h` and its respective source is just for fun rather than what I necessarily think a proper logging implementation.
+The point of this repository is to document and create examples. The use of CMAKE is a "quick-and-dirty" setup because learning that tool extensively is not the main point of this repository. Furthermore the logging found in `log.h` and its respective source is just for fun rather than what I necessarily think a proper logging implementation.
 
 # Prerequisites
 ## MINGW Compiler Installation for Windows 10
