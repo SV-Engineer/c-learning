@@ -4,13 +4,10 @@
  * 
  */
 
-#ifndef POINTER_USAGE_H_
-  #define POINTER_USAGE_H_
-  #include <stdio.h>
-  #include <stdint.h>
-  #include <string.h>
-
-  void pointer_abuse(void);
-  void p_abuse_call_back(void);
-
-#endif /* POINTER_USAGE_H_ */
+#if RUN == 2
+  #ifndef POINTER_USAGE_H_
+    #define POINTER_USAGE_H_
+    #include <stdint.h>
+    #include "log.h"
+  #endif /* POINTER_USAGE_H_ */
+#endif /* RUN==2*/

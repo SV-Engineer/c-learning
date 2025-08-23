@@ -1,3 +1,0 @@
-D:/Development/c-learning/build/CMakeFiles/RUN.dir
-D:/Development/c-learning/build/CMakeFiles/edit_cache.dir
-D:/Development/c-learning/build/CMakeFiles/rebuild_cache.dir
