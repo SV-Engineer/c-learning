@@ -15,12 +15,15 @@
     #define LOG_NAME_MAX_LENGTH         16
   #endif
 
+  // Forward declaration to resolve circular dependency.
+  typedef struct LOG log_t;
+
   /** @brief Typedef for logging function poitners. the initialization input is the ID.*/
-  typedef void (*log_function_ptr_t)(const char*);
+  typedef void (*log_function_ptr_t)(log_t*, const char*);
 
   /** @brief The data structure for logging */
   typedef struct LOG {
-    const char name[LOG_NAME_MAX_LENGTH];
+    char name[LOG_NAME_MAX_LENGTH];
     log_function_ptr_t INFORMATION;
     log_function_ptr_t WARNING;
     log_function_ptr_t ERROR_SOFT;
@@ -41,5 +44,20 @@
 
   log_t* initialize_logger(const char* name);
   void   delete_all_logger_instances();
+
+  /** @group log_api
+   * @brief "API-Like" macros that expect a struct instance with symbol name "log"
+   *
+   */
+
+  /** @ingroup log_api @{ */
+  #define CREATE_LOG_INSTANCE(N)     log_t* log = initialize_logger(((const char*) N))
+
+  #define LOG_I(S)                   log->INFORMATION(log,    ((const char*) S))
+  #define LOG_W(S)                   log->WARNING(log,        ((const char*) S))
+  #define LOG_SE(S)                  log->ERROR_SOFT(log,     ((const char*) S))
+  #define LOG_CE(S)                  log->ERROR_CRITICAL(log, ((const char*) S))
+  #define KILL_ALL_LOG_INSTANCES     delete_all_logger_instances
+  /** @} */
 
 #endif /* LOG_H_ */

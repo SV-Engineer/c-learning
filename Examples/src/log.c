@@ -14,10 +14,10 @@
   #define MAX_NUMBER_OF_LOG_INSTANCES   10
 #endif
 
-const char* LOG_INFORMATION            = "INFORMATION     --  ";
-const char* LOG_WARNING                = "!WARNING        --  ";
-const char* LOG_ERROR_SOFT             = "!ERROR_SOFT     --  ";
-const char* LOG_ERROR_CRITICAL         = "!ERROR_CRITICAL --  ";
+const char* LOG_INFORMATION            = "#INFORMATION    --  ";
+const char* LOG_WARNING                = "#WARNING        --  ";
+const char* LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
+const char* LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
 
 // Forward declarations
 static void __log_information(log_t* log, const char* data);
@@ -43,17 +43,16 @@ static log_instances_t* __log_instances;
 #if RUN==3
   int run(void) {
     const char* MODULE_NAME = "RUN3\0";
-    log_t* log = initialize_logger(MODULE_NAME);
-
-
-    log->INFORMATION(log, "TEST I");
-    log->WARNING(log, "TEST W");
-    log->ERROR_SOFT(log, "TEST ES");
-    log->ERROR_CRITICAL(log, "TEST EC");
+    CREATE_LOG_INSTANCE(MODULE_NAME);
 
     if (log != NULL) {
-      printf("log was NOT NULL\n");
-      free(log);
+      printf("%slog was NOT NULL\n", LOG_INFORMATION);
+      LOG_I("TEST I");
+      LOG_W("TEST W");
+      LOG_SE("TEST ES");
+      LOG_CE("TEST EC");
+      LOG_I("Killing all log instances...");
+      KILL_ALL_LOG_INSTANCES();
     }
 
     else {
@@ -107,10 +106,10 @@ log_t* initialize_logger(const char* name) {
 
     printf("%sProvided name is valid and memory is allocated\n",       LOG_INFORMATION);
     strcpy((char*) &(log->name), name);
-    log->INFORMATION = (log_function_ptr_t) &__log_information;
-    log->INFORMATION = (log_function_ptr_t) &__log_warning;
-    log->INFORMATION = (log_function_ptr_t) &__log_soft_error;
-    log->INFORMATION = (log_function_ptr_t) &__log_critical_error;
+    log->INFORMATION    = (log_function_ptr_t) &__log_information;
+    log->WARNING        = (log_function_ptr_t) &__log_warning;
+    log->ERROR_SOFT     = (log_function_ptr_t) &__log_soft_error;
+    log->ERROR_CRITICAL = (log_function_ptr_t) &__log_critical_error;
 
     // I start at 0
     if (__instance_id > 0) {
@@ -118,41 +117,21 @@ log_t* initialize_logger(const char* name) {
       log_instances_t* list_ptr      = __log_instances;
       bool             invalid_exit  = false;
 
-    #ifndef USE_LINKED_LIST_ITERATE
-      // Benefit of a circularly linked list is that I can just grab the previous from the 0th entry.
-      // There are probably better ways to achieve this, but again, fun.
       list_ptr = list_ptr->previous;
-    #else
-      int              time_out      = MAX_NUMBER_OF_LOG_INSTANCES;
-      // Leaving this here because I want to come back and play with it.
-      // Find the "last" instance in the circularly linked list
-      while (list_ptr->ID != __instance_id-1) {
-        list_ptr = list_ptr->next;
-        if (time_out-- <= 0){
-          invalid_exit = true;
-          break; // Just in case
-        }
-      }
-    #endif
-
-      if (!invalid_exit) {
-        instance_node->ID           = __instance_id++;
-        instance_node->log_instance = log;
-        // Insert new node at the "end"
-        // Honestly I don't think this needs to be a circularly linked list, but
-        // meh I'm enjoying the implementation. It makes way more sense to just
-        // iterate through next until NULL is found. I may change my opinion once
-        // I get to the implementation of freeing all the memory.
-        instance_node->previous     = list_ptr;
-        instance_node->next         = list_ptr->next;
-        list_ptr->next              = instance_node;
-      }
-      else {
-        free(instance_node);
-      }
+      instance_node->ID           = __instance_id++;
+      instance_node->log_instance = log;
+      // Insert new node at the "end"
+      // Honestly I don't think this needs to be a circularly linked list, but
+      // meh I'm enjoying the implementation. It makes way more sense to just
+      // iterate through next until NULL is found. I may change my opinion once
+      // I get to the implementation of freeing all the memory.
+      instance_node->previous     = list_ptr;
+      instance_node->next         = list_ptr->next;
+      list_ptr->next              = instance_node;
 
     }
     else {
+      printf("Instantiate 0th instance with instance ID: %0d\n", __instance_id);
       __log_instances               = instance_node;
       // 0th case it needs to point to itself until more instances are added.
       __log_instances->ID           = __instance_id++; // Increment to 1
@@ -174,9 +153,11 @@ void delete_all_logger_instances(void) {
   log_instances_t* list_ptr      = __log_instances;
 
   if (list_ptr != NULL) {
+    printf("List PTR is not NULL with ID: %0d\n", list_ptr->ID);
     list_ptr = list_ptr->previous;
-    while (list_ptr->ID != 0) {
+    while (list_ptr->ID > 0) {
       // Free last "non-null instance"
+      printf("Free instance ID: %0d\n", list_ptr->ID);
       free(list_ptr->log_instance);
       list_ptr->log_instance = NULL;
       list_ptr->next         = NULL;
@@ -192,39 +173,31 @@ void delete_all_logger_instances(void) {
     }
 
     // Free the last one
-    free(__log_instances);
+    printf("Free last instance ID: %0d\n", list_ptr->ID);
+    free(list_ptr);
     __log_instances = NULL;
+    list_ptr        = NULL;
   }
 
-  if (__log_instances == NULL) {
-    printf("All Log instances freed and NULLified");
-  }
-
-  else {
-    printf("All Log instances NOT freed and NULLified");
-  }
+  printf("All Log instances freed and NULLified");
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_information(log_t* log, const char* data) {
-  printf("%s%s\n", LOG_INFORMATION, data);
+  printf("%s(%s)  --  %s\n", LOG_INFORMATION, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_warning(log_t* log, const char* data) {
-  printf("%s%s\n", LOG_WARNING, data);
+  printf("%s(%s)  --  %s\n", LOG_WARNING, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_soft_error(log_t* log, const char* data) {
-  printf("%s%s\n", LOG_ERROR_SOFT, data);
+  printf("%s(%s)  --  %s\n", LOG_ERROR_SOFT, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_critical_error(log_t* log, const char* data) {
-  printf("%s%s\n", LOG_ERROR_CRITICAL, data);
-}
-
-void I (const char* data) {
-  
+  printf("%s(%s)  --  %s\n", LOG_ERROR_CRITICAL, log->name, data);
 }

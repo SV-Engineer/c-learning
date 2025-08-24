@@ -24,7 +24,7 @@ TODO: Add proper clean method.
 ### Build Then Run
 THEN:
   ```
-  cmake .. -G "MinGW Makefiles" -DRUN=1 && mingw32-make && RUN.exe
+  cmake .. -G "MinGW Makefiles" -DRUN=1 && mingw32-make && ./RUN.exe
   ```
 
 ## Steps
