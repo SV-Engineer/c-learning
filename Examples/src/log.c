@@ -2,13 +2,16 @@
  * @author Austin
  * @brief SRC Logging with C std library and function pointers
  *
+ * @note It appears to get this to work the way I want, I need to write some x86 assembly and then cast it to a funtion pointer. What 
+ * an interesting problem.
  */
 
+#include <stdbool.h>
 #include "log.h"
 
 #ifndef MAX_NUMBER_OF_LOG_INSTANCES
-  /** @brief Arbitrarily large. */
-  #define MAX_NUMBER_OF_LOG_INSTANCES   100 
+  /** @brief No idea what this should be yet. */
+  #define MAX_NUMBER_OF_LOG_INSTANCES   10
 #endif
 
 const char* LOG_INFORMATION            = "INFORMATION     --  ";
@@ -37,14 +40,20 @@ typedef struct LOG_LINKED_LINKED_LIST {
 static log_instances_t* __log_instances;
 
 // Need to make sure the logging works.
-#ifdef RUN==3
+#if RUN==3
   int run(void) {
     const char* MODULE_NAME = "RUN3\0";
     log_t* log = initialize_logger(MODULE_NAME);
 
+
+    log->INFORMATION(log, "TEST I");
+    log->WARNING(log, "TEST W");
+    log->ERROR_SOFT(log, "TEST ES");
+    log->ERROR_CRITICAL(log, "TEST EC");
+
     if (log != NULL) {
       printf("log was NOT NULL\n");
-      delete_logger(log);
+      free(log);
     }
 
     else {
@@ -69,15 +78,24 @@ static log_instances_t* __log_instances;
  * A data structure that exists to logger with provided name.
  */
 log_t* initialize_logger(const char* name) {
-  log_t* log                     = (log_t*) malloc(sizeof(log_t));
-  log_instances_t* instance_node = (log_instances_t*) malloc(sizeof(log_instances_t));
+  log_t*           log                = (log_t*) malloc(sizeof(log_t));
+  log_instances_t* instance_node      = (log_instances_t*) malloc(sizeof(log_instances_t));
+  bool             is_null_terminated = false;
 
   (void) memset((void*) &(log->name), 0, LOG_NAME_MAX_LENGTH);
 
   // Check for NULL terminator first so the "else-if" printf statement doesn't break.
-  if (name[LOG_NAME_MAX_LENGTH-1] != '\0') {
+  for (int i = 0; i < LOG_NAME_MAX_LENGTH; i++) {
+    if (name[i] == '\0') {
+      is_null_terminated = true;
+      break;
+    }
+  }
+
+  if (!is_null_terminated) {
     printf("%sProvided name is not terminated with NULL: '\\0'\n",     LOG_ERROR_SOFT);
-    delete_logger(log);
+    free(log);
+    log = NULL;
   }
 
   else if (log == NULL) {
@@ -148,10 +166,7 @@ log_t* initialize_logger(const char* name) {
 }
 
 /** @fn void delete_all_logger_instances(void)
- * @brief Deletes a logger
- *
- * @param log
- * A heap allocated logger
+ * @brief Deletes all logger instances.
  *
  * @return void
  */
@@ -190,18 +205,26 @@ void delete_all_logger_instances(void) {
   }
 }
 
+// Sub-task functions to print once logger instance is resolved.
 static void __log_information(log_t* log, const char* data) {
-  printf("TODO: INFO");
+  printf("%s%s\n", LOG_INFORMATION, data);
 }
 
+// Sub-task functions to print once logger instance is resolved.
 static void __log_warning(log_t* log, const char* data) {
-  printf("TODO: WARN");
+  printf("%s%s\n", LOG_WARNING, data);
 }
 
+// Sub-task functions to print once logger instance is resolved.
 static void __log_soft_error(log_t* log, const char* data) {
-  printf("TODO: SE");
+  printf("%s%s\n", LOG_ERROR_SOFT, data);
 }
 
+// Sub-task functions to print once logger instance is resolved.
 static void __log_critical_error(log_t* log, const char* data) {
-  printf("TODO: CE");`
+  printf("%s%s\n", LOG_ERROR_CRITICAL, data);
+}
+
+void I (const char* data) {
+  
 }

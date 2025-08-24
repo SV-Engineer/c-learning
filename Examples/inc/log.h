@@ -15,11 +15,8 @@
     #define LOG_NAME_MAX_LENGTH         16
   #endif
 
-  /** @brief Forward declare the log data type for recursive reference */
-  typedef struct LOG log_t;
-
-  /** @brief Typedef for for logging function poitners. */
-  typedef void (*log_function_ptr_t)(log_t*, const char*);
+  /** @brief Typedef for logging function poitners. the initialization input is the ID.*/
+  typedef void (*log_function_ptr_t)(const char*);
 
   /** @brief The data structure for logging */
   typedef struct LOG {
@@ -43,6 +40,6 @@
 
 
   log_t* initialize_logger(const char* name);
-  void   delete_all_logger_instances(log_t* log);
+  void   delete_all_logger_instances();
 
 #endif /* LOG_H_ */
