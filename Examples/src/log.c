@@ -96,6 +96,8 @@ log_t* initialize_logger(const char* name) {
     log->ERROR_SOFT     = (log_function_ptr_t) &__log_soft_error;
     log->ERROR_CRITICAL = (log_function_ptr_t) &__log_critical_error;
 
+
+    // TODO: What happens when the delete function is called and another instance is initialized?
     // I start at 0
     if (__instance_id > 0) {
       // After 0th case, new entries to the linked list are needed.
