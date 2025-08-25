@@ -117,6 +117,8 @@ log_t* initialize_logger(const char* name) {
       log_instances_t* list_ptr      = __log_instances;
       bool             invalid_exit  = false;
 
+      printf("Instantiate instance with instance ID: %0d\n", __instance_id);
+
       list_ptr = list_ptr->previous;
       instance_node->ID           = __instance_id++;
       instance_node->log_instance = log;
@@ -136,8 +138,8 @@ log_t* initialize_logger(const char* name) {
       // 0th case it needs to point to itself until more instances are added.
       __log_instances->ID           = __instance_id++; // Increment to 1
       __log_instances->log_instance = log;
-      __log_instances->next         = (log_instances_t*) &__log_instances;
-      __log_instances->previous     = (log_instances_t*) &__log_instances;
+      __log_instances->next         = __log_instances;
+      __log_instances->previous     = __log_instances;
     }
   }
 
