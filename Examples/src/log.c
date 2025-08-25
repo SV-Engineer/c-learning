@@ -79,25 +79,10 @@ static log_instances_t* __log_instances;
 log_t* initialize_logger(const char* name) {
   log_t*           log                = (log_t*) malloc(sizeof(log_t));
   log_instances_t* instance_node      = (log_instances_t*) malloc(sizeof(log_instances_t));
-  bool             is_null_terminated = false;
 
   (void) memset((void*) &(log->name), 0, LOG_NAME_MAX_LENGTH);
 
-  // Check for NULL terminator first so the "else-if" printf statement doesn't break.
-  for (int i = 0; i < LOG_NAME_MAX_LENGTH; i++) {
-    if (name[i] == '\0') {
-      is_null_terminated = true;
-      break;
-    }
-  }
-
-  if (!is_null_terminated) {
-    printf("%sProvided name is not terminated with NULL: '\\0'\n",     LOG_ERROR_SOFT);
-    free(log);
-    log = NULL;
-  }
-
-  else if (log == NULL) {
+  if (log == NULL) {
     printf("%sHeap Space unavailable to allocate log with name: %s\n", LOG_ERROR_CRITICAL, name);
   }
 
