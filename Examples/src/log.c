@@ -14,10 +14,10 @@
   #define MAX_NUMBER_OF_LOG_INSTANCES   10
 #endif
 
-const char* LOG_INFORMATION            = "#INFORMATION    --  ";
-const char* LOG_WARNING                = "#WARNING        --  ";
-const char* LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
-const char* LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
+const char* __LOG_INFORMATION            = "#INFORMATION    --  ";
+const char* __LOG_WARNING                = "#WARNING        --  ";
+const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
+const char* __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
 
 // Forward declarations
 static void __log_information(log_t* log, const char* data);
@@ -46,7 +46,7 @@ static log_instances_t* __log_instances;
     CREATE_LOG_INSTANCE(MODULE_NAME);
 
     if (log != NULL) {
-      printf("%slog was NOT NULL\n", LOG_INFORMATION);
+      printf("%slog was NOT NULL\n", __LOG_INFORMATION);
       LOG_I("TEST I");
       LOG_W("TEST W");
       LOG_SE("TEST ES");
@@ -83,13 +83,13 @@ log_t* initialize_logger(const char* name) {
   (void) memset((void*) &(log->name), 0, LOG_NAME_MAX_LENGTH);
 
   if (log == NULL) {
-    printf("%sHeap Space unavailable to allocate log with name: %s\n", LOG_ERROR_CRITICAL, name);
+    printf("%sHeap Space unavailable to allocate log with name: %s\n", __LOG_ERROR_CRITICAL, name);
   }
 
   else {
     static int       __instance_id = 0;
 
-    printf("%sProvided name is valid and memory is allocated\n",       LOG_INFORMATION);
+    printf("%sProvided name is valid and memory is allocated\n",       __LOG_INFORMATION);
     strcpy((char*) &(log->name), name);
     log->INFORMATION    = (log_function_ptr_t) &__log_information;
     log->WARNING        = (log_function_ptr_t) &__log_warning;
@@ -173,20 +173,20 @@ void delete_all_logger_instances(void) {
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_information(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", LOG_INFORMATION, log->name, data);
+  printf("%s(%s)  --  %s\n", __LOG_INFORMATION, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_warning(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", LOG_WARNING, log->name, data);
+  printf("%s(%s)  --  %s\n", __LOG_WARNING, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_soft_error(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", LOG_ERROR_SOFT, log->name, data);
+  printf("%s(%s)  --  %s\n", __LOG_ERROR_SOFT, log->name, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_critical_error(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", LOG_ERROR_CRITICAL, log->name, data);
+  printf("%s(%s)  --  %s\n", __LOG_ERROR_CRITICAL, log->name, data);
 }
