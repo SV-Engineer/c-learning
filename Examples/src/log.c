@@ -102,7 +102,6 @@ log_t* initialize_logger(const char* name) {
     if (__instance_id > 0) {
       // After 0th case, new entries to the linked list are needed.
       log_instances_t* list_ptr      = __log_instances;
-      bool             invalid_exit  = false;
 
       printf("Instantiate instance with instance ID: %0d\n", __instance_id);
 
