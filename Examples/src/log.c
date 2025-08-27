@@ -38,6 +38,7 @@ typedef struct LOG_LINKED_LINKED_LIST {
 
 //! @brief This is static because there is no need for this to be linked to outside of this compilation unit.
 static log_instances_t* __log_instances;
+static int             __latest_first_instance_id = -2;
 
 // Need to make sure the logging works.
 #if RUN==3
@@ -99,7 +100,7 @@ log_t* initialize_logger(const char* name) {
 
     // TODO: What happens when the delete function is called and another instance is initialized?
     // I start at 0
-    if (__instance_id > 0) {
+    if (__log_instances != NULL) {
       // After 0th case, new entries to the linked list are needed.
       log_instances_t* list_ptr      = __log_instances;
 
@@ -119,14 +120,16 @@ log_t* initialize_logger(const char* name) {
 
     }
     else {
-      printf("Instantiate 0th instance with instance ID: %0d\n", __instance_id);
+      printf("Instantiate new set of instances with first instance ID: %0d\n", __instance_id);
       __log_instances               = instance_node;
       // 0th case it needs to point to itself until more instances are added.
       __log_instances->ID           = __instance_id++; // Increment to 1
       __log_instances->log_instance = log;
       __log_instances->next         = __log_instances;
       __log_instances->previous     = __log_instances;
+      __latest_first_instance_id    = __instance_id - 1;
     }
+
   }
 
   return log;
@@ -143,7 +146,7 @@ void delete_all_logger_instances(void) {
   if (list_ptr != NULL) {
     printf("List PTR is not NULL with ID: %0d\n", list_ptr->ID);
     list_ptr = list_ptr->previous;
-    while (list_ptr->ID > 0) {
+    while (list_ptr->ID > __latest_first_instance_id) {
       // Free last "non-null instance"
       printf("Free instance ID: %0d\n", list_ptr->ID);
       free(list_ptr->log_instance);
@@ -161,10 +164,13 @@ void delete_all_logger_instances(void) {
     }
 
     // Free the last one
-    printf("Free last instance ID: %0d\n", list_ptr->ID);
-    free(list_ptr);
-    __log_instances = NULL;
-    list_ptr        = NULL;
+    // ??? Should this be a valid use case / edge case?
+    if (list_ptr != NULL) {
+      printf("Free last instance ID: %0d\n", list_ptr->ID);
+      free(list_ptr);
+      __log_instances = NULL;
+      list_ptr        = NULL;
+    }
   }
 
   printf("All Log instances freed and NULLified");
