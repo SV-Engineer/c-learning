@@ -43,7 +43,7 @@ static int             __latest_first_instance_id = -2;
 // Need to make sure the logging works.
 #if RUN==3
   int run(void) {
-    const char* MODULE_NAME = "RUN3\0";
+    const char* MODULE_NAME = "RUN3A\0";
     CREATE_LOG_INSTANCE(MODULE_NAME);
 
     if (log != NULL) {
@@ -54,6 +54,16 @@ static int             __latest_first_instance_id = -2;
       LOG_CE("TEST EC");
       LOG_I("Killing all log instances...");
       KILL_ALL_LOG_INSTANCES();
+
+      MODULE_NAME = "RUN3B\0";
+      CREATE_LOG_INSTANCE(MODULE_NAME);
+      LOG_I("TEST I");
+      LOG_W("TEST W");
+      LOG_SE("TEST ES");
+      LOG_CE("TEST EC");
+      LOG_I("Killing all log instances...");
+      KILL_ALL_LOG_INSTANCES();
+
     }
 
     else {
@@ -127,7 +137,7 @@ log_t* initialize_logger(const char* name) {
       __log_instances->log_instance = log;
       __log_instances->next         = __log_instances;
       __log_instances->previous     = __log_instances;
-      __latest_first_instance_id    = __instance_id - 1;
+      __latest_first_instance_id    = __instance_id - 1; // 1-1=0 the first time around. Instantiating and killing many times means this is non-zero at some point.
     }
 
   }
@@ -145,6 +155,7 @@ void delete_all_logger_instances(void) {
 
   if (list_ptr != NULL) {
     printf("List PTR is not NULL with ID: %0d\n", list_ptr->ID);
+    // If only one instance was created, this will just point to itself and the while loop construct will never be entered.
     list_ptr = list_ptr->previous;
     while (list_ptr->ID > __latest_first_instance_id) {
       // Free last "non-null instance"
@@ -155,7 +166,7 @@ void delete_all_logger_instances(void) {
       list_ptr->ID           = -1;
 
       // By back tracking through the cirularly linked list, we can free the "next" node whose log instance we just freed.
-      // Doing so will guarantee that when we get to the statically allocated 0th node, all dynamically allocated nodes are delete.
+      // Doing so will guarantee that when we get to the 0th node, all allocated nodes are delete.
       list_ptr       = list_ptr->previous;
 
       // Free then re-assign to NULL to enable NULL checking.
@@ -165,6 +176,7 @@ void delete_all_logger_instances(void) {
 
     // Free the last one
     // ??? Should this be a valid use case / edge case?
+    // There is probably a way to do this by null checking in a do-while construct?
     if (list_ptr != NULL) {
       printf("Free last instance ID: %0d\n", list_ptr->ID);
       free(list_ptr);
