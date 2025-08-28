@@ -38,7 +38,7 @@ THEN:
 ## Recursion
 See file `recursion_with_switch_statements.h` and its source.
 To compile and run use:
-    > mkdir ./build && cd ./build && cmake .. -G "MinGW Makefiles" -DRUN=1 && mingw32-make && RUN.exe
+    > mkdir ./build && cd ./build && cmake .. -G "MinGW Makefiles" -DRUN=1 && mingw32-make && ./RUN.exe
 
 ## Pointers
 See file `pointer_usage.h` and it's source.
