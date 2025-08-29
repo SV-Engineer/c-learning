@@ -15,9 +15,9 @@ Go to: https://cmake.org/download/ and install it. This one is easier than mingw
 # Generic Running Instructions
 ## Quick Commands
 ### Clean Build Directory
-Use me to clean.
+Use me to clean. Assumes `${cwd}` is `build`.
   ```
-  rm -r ./build && mkdir build && cd ./build
+  cd .. && rm -r ./build && mkdir build && cd ./build
   ```
 TODO: Add proper clean method.
 
