@@ -33,7 +33,7 @@
     DELINEATE;
     log_bit_fields((bit_fields_t*) &bit_fields);
 
-    // Notice how on the console iteration '1' sets all the bitfields to their values.
+    // Notice how on the console output, iteration '1' sets all the bitfields to their values.
     // The data structure is reset to 0 and each iteration post '1' shows only the bit-field in use set.
     for (int i = 0; i < NUM_INPUTS; i++) {
       DELINEATE;
