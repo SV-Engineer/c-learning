@@ -51,7 +51,7 @@
    */
 
   /** @ingroup log_api @{ */
-  #define CREATE_LOG_INSTANCE(N)     log_t* log = initialize_logger(((const char*) N))
+  #define CREATE_LOG_INSTANCE(N)     log = initialize_logger(((const char*) N))
 
   #define LOG_I(S)                   log->INFORMATION(log,    ((const char*) S))
   #define LOG_W(S)                   log->WARNING(log,        ((const char*) S))
@@ -61,3 +61,8 @@
   /** @} */
 
 #endif /* LOG_H_ */
+
+/** @par  ATTENTION!!!
+          This is not in the header guard because it must be copied to each source file that includes it. Is this not all that great of a practice? Yes. Working within the limitations of C is difficult and sometimes we need to acknowledge that the way we want to implement something doesn't work well. This is a great example. I wanted to imitate object oriented programming and create dynamically allocated logging structures per module in C. As it turns out, I need to do some rather sketchy stuff to imitate OOP. This is repository is for learning. So this ugliness stays as a reminder.
+ */
+static log_t* log;
