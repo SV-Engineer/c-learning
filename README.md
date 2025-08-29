@@ -30,7 +30,7 @@ THEN:
 ## Steps
   1. If D.N.E.: `mkdir build`
   2. `cd ./build`
-  3. `cmake .. -G "MinGW Makefiles"`
+  3. `cmake .. -G "MinGW Makefiles" -DRUN=<Specified RUN=integer>`
   4. `mingw32-make`
   5. Run the resultant executable.
 
