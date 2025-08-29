@@ -2,6 +2,7 @@
  * @author Austin
  * @brief INC Logging with C std library and function pointers
  *
+ * @note This header MUST ONLY be included in source files. Stuff will break if it is included in other headers.
  */
 
 #ifndef LOG_H_
