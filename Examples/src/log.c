@@ -20,10 +20,10 @@ const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
 const char* __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
 
 // Forward declarations
-static void __log_information(log_t* log, const char* data);
-static void __log_warning(log_t* log, const char* data);
-static void __log_soft_error(log_t* log, const char* data);
-static void __log_critical_error(log_t* log, const char* data);
+static void __log_information    (log_t* log, const char* data, int line_number);
+static void __log_warning        (log_t* log, const char* data, int line_number);
+static void __log_soft_error     (log_t* log, const char* data, int line_number);
+static void __log_critical_error (log_t* log, const char* data, int line_number);
 
 // FORWARD DECLARED DATA TYPE
 typedef struct LOG_LINKED_LINKED_LIST log_instances_t;
@@ -189,21 +189,21 @@ void delete_all_logger_instances(void) {
 }
 
 // Sub-task functions to print once logger instance is resolved.
-static void __log_information(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", __LOG_INFORMATION, log->name, data);
+static void __log_information(log_t* log, const char* data, int line_number) {
+  printf("%s(%s - line#%0d)  --  %s\n", __LOG_INFORMATION, log->name, line_number, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
-static void __log_warning(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", __LOG_WARNING, log->name, data);
+static void __log_warning(log_t* log, const char* data, int line_number) {
+  printf("%s(%s - line#%0d)  --  %s\n", __LOG_WARNING, log->name, line_number, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
-static void __log_soft_error(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", __LOG_ERROR_SOFT, log->name, data);
+static void __log_soft_error(log_t* log, const char* data, int line_number) {
+  printf("%s(%s - line#%0d)  --  %s\n", __LOG_ERROR_SOFT, log->name, line_number, data);
 }
 
 // Sub-task functions to print once logger instance is resolved.
-static void __log_critical_error(log_t* log, const char* data) {
-  printf("%s(%s)  --  %s\n", __LOG_ERROR_CRITICAL, log->name, data);
+static void __log_critical_error(log_t* log, const char* data, int line_number) {
+  printf("%s(%s - line#%0d)  --  %s\n", __LOG_ERROR_CRITICAL, log->name, line_number, data);
 }

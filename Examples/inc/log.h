@@ -20,7 +20,7 @@
   typedef struct LOG log_t;
 
   /** @brief Typedef for logging function poitners. the initialization input is the ID.*/
-  typedef void (*log_function_ptr_t)(log_t*, const char*);
+  typedef void (*log_function_ptr_t)(log_t*, const char*, int);
 
   /** @brief The data structure for logging */
   typedef struct LOG {
@@ -54,10 +54,10 @@
   /** @ingroup log_api @{ */
   #define CREATE_LOG_INSTANCE(N)     log = initialize_logger(((const char*) N))
 
-  #define LOG_I(S)                   log->INFORMATION(log,    ((const char*) S))
-  #define LOG_W(S)                   log->WARNING(log,        ((const char*) S))
-  #define LOG_SE(S)                  log->ERROR_SOFT(log,     ((const char*) S))
-  #define LOG_CE(S)                  log->ERROR_CRITICAL(log, ((const char*) S))
+  #define LOG_I(S)                   log->INFORMATION(log,    ((const char*) S), __LINE__)
+  #define LOG_W(S)                   log->WARNING(log,        ((const char*) S), __LINE__)
+  #define LOG_SE(S)                  log->ERROR_SOFT(log,     ((const char*) S), __LINE__)
+  #define LOG_CE(S)                  log->ERROR_CRITICAL(log, ((const char*) S), __LINE__)
   #define KILL_ALL_LOG_INSTANCES     delete_all_logger_instances
   /** @} */
 
