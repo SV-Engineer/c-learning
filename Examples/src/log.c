@@ -24,6 +24,7 @@ static void __log_information    (log_t* log, const char* data, int line_number)
 static void __log_warning        (log_t* log, const char* data, int line_number);
 static void __log_soft_error     (log_t* log, const char* data, int line_number);
 static void __log_critical_error (log_t* log, const char* data, int line_number);
+static void __delineation        (log_t* log, const char* data);
 
 // FORWARD DECLARED DATA TYPE
 typedef struct LOG_LINKED_LINKED_LIST log_instances_t;
@@ -102,10 +103,11 @@ log_t* initialize_logger(const char* name) {
 
     printf("%sProvided name is valid and memory is allocated\n",       __LOG_INFORMATION);
     strcpy((char*) &(log->name), name);
-    log->INFORMATION    = (log_function_ptr_t) &__log_information;
-    log->WARNING        = (log_function_ptr_t) &__log_warning;
-    log->ERROR_SOFT     = (log_function_ptr_t) &__log_soft_error;
-    log->ERROR_CRITICAL = (log_function_ptr_t) &__log_critical_error;
+    log->DELINEATE      = (log_delineate_ptr_t) &__delineation;
+    log->INFORMATION    = (log_function_ptr_t)  &__log_information;
+    log->WARNING        = (log_function_ptr_t)  &__log_warning;
+    log->ERROR_SOFT     = (log_function_ptr_t)  &__log_soft_error;
+    log->ERROR_CRITICAL = (log_function_ptr_t)  &__log_critical_error;
 
 
     // TODO: What happens when the delete function is called and another instance is initialized?
@@ -206,4 +208,10 @@ static void __log_soft_error(log_t* log, const char* data, int line_number) {
 // Sub-task functions to print once logger instance is resolved.
 static void __log_critical_error(log_t* log, const char* data, int line_number) {
   printf("%s(%s - line#%0d)  --  %s\n", __LOG_ERROR_CRITICAL, log->name, line_number, data);
+}
+
+static void __delineation(log_t* log, const char* data) {
+  printf("\n=================================================================\n");
+  printf("%s  --  %s\n", log->name, data);
+  printf("\n=================================================================\n");
 }

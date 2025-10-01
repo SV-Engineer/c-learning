@@ -7,6 +7,7 @@
 #if RUN==1
   #include <stdint.h>
   #include <stdio.h>
+  #include "log.h"
   #include "recursion_with_switch_statements.h"
 
   #define NUM_INPUTS 6
@@ -24,20 +25,19 @@
   static __inline int __to_upper(char* c);
 
   int run (void) {
-    DELINEATE;
-    INFO("RUN#%0d - RECURSION WITH SWITCH STATEMENTS", RUN);
+    CREATE_LOG_INSTANCE("RSS\0");
+    LOG_D("RUN#%0d - RECURSION WITH SWITCH STATEMENTS", RUN);
 
     bit_fields_t bit_fields = {0};
 
     // Pre-iteration the data structure is 0
-    DELINEATE;
     log_bit_fields((bit_fields_t*) &bit_fields);
 
     // Notice how on the console output, iteration '1' sets all the bitfields to their values.
     // The data structure is reset to 0 and each iteration post '1' shows only the bit-field in use set.
     for (int i = 0; i < NUM_INPUTS; i++) {
-      DELINEATE;
-      INFO("Iteration: %0d", i+1);
+      
+      LOG_D("Iteration: %0d", i+1);
       modify_multiple_fields(FN_INPUTS[i], (bit_fields_t*) &bit_fields);
       log_bit_fields((bit_fields_t*) &bit_fields);
 
@@ -46,6 +46,7 @@
       bit_fields.w[1] = 0;
     }
 
+    KILL_ALL_LOG_INSTANCES();
     return 0;
   }
 
@@ -64,7 +65,7 @@
     char sel = selection;
 
     if (__to_upper((char*) &sel) > -1) {
-      INFO("%c input in use", sel);
+      LOG_I("%c input in use", sel);
       switch (sel) {
         case 'S': // Set All bitfields
           modify_multiple_fields('A', bit_fields);
@@ -95,18 +96,18 @@
           break;
         
         default:
-          INFO("%c is an invalid input to modify_multiple_fields function", sel);
+          LOG_I("%c is an invalid input to modify_multiple_fields function", sel);
           break;
       }
     }
   }
 
   void log_bit_fields (bit_fields_t* bit_fields) {
-    INFO("BITFIELD A == 0x%04x", bit_fields->b.A);
-    INFO("BITFIELD B == 0x%04x", bit_fields->b.B);
-    INFO("BITFIELD C == 0x%04x", bit_fields->b.C);
-    INFO("BITFIELD D == 0x%04x", bit_fields->b.D);
-    INFO("BITFIELD E == 0x%04x", bit_fields->b.E);
+    LOG_I("BITFIELD A == 0x%04x", bit_fields->b.A);
+    LOG_I("BITFIELD B == 0x%04x", bit_fields->b.B);
+    LOG_I("BITFIELD C == 0x%04x", bit_fields->b.C);
+    LOG_I("BITFIELD D == 0x%04x", bit_fields->b.D);
+    LOG_I("BITFIELD E == 0x%04x", bit_fields->b.E);
   }
 
 #endif /* RUN == 1*/
