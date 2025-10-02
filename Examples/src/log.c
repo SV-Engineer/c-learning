@@ -68,7 +68,7 @@ static int             __latest_first_instance_id = -2;
     }
 
     else {
-      printf("Log was NULL\n");
+      printf("%sLog was NULL\n", __LOG_ERROR_CRITICAL);
     }
 
     return 0;
@@ -116,7 +116,7 @@ log_t* initialize_logger(const char* name) {
       // After 0th case, new entries to the linked list are needed.
       log_instances_t* list_ptr      = __log_instances;
 
-      printf("Instantiate instance with instance ID: %0d\n", __instance_id);
+      printf("%sInstantiate instance with instance ID: %0d\n", __LOG_INFORMATION, __instance_id);
 
       list_ptr = list_ptr->previous;
       instance_node->ID           = __instance_id++;
@@ -132,7 +132,7 @@ log_t* initialize_logger(const char* name) {
 
     }
     else {
-      printf("Instantiate new set of instances with first instance ID: %0d\n", __instance_id);
+      printf("%sInstantiate new set of instances with first instance ID: %0d\n", __LOG_INFORMATION, __instance_id);
       __log_instances               = instance_node;
       // 0th case it needs to point to itself until more instances are added.
       __log_instances->ID           = __instance_id++; // Increment to 1
@@ -156,12 +156,12 @@ void delete_all_logger_instances(void) {
   log_instances_t* list_ptr      = __log_instances;
 
   if (list_ptr != NULL) {
-    printf("List PTR is not NULL with ID: %0d\n", list_ptr->ID);
+    printf("%sList PTR is not NULL with ID: %0d\n", __LOG_INFORMATION, list_ptr->ID);
     // If only one instance was created, this will just point to itself and the while loop construct will never be entered.
     list_ptr = list_ptr->previous;
     while (list_ptr->ID > __latest_first_instance_id) {
       // Free last "non-null instance"
-      printf("Free instance ID: %0d\n", list_ptr->ID);
+      printf("%sFree instance ID: %0d\n", __LOG_INFORMATION, list_ptr->ID);
       free(list_ptr->log_instance);
       list_ptr->log_instance = NULL;
       list_ptr->next         = NULL;
@@ -180,14 +180,14 @@ void delete_all_logger_instances(void) {
     // ??? Should this be a valid use case / edge case?
     // There is probably a way to do this by null checking in a do-while construct?
     if (list_ptr != NULL) {
-      printf("Free last instance ID: %0d\n", list_ptr->ID);
+      printf("%sFree last instance ID: %0d\n", __LOG_INFORMATION, list_ptr->ID);
       free(list_ptr);
       __log_instances = NULL;
       list_ptr        = NULL;
     }
   }
 
-  printf("All Log instances freed and NULLified");
+  printf("%sAll Log instances freed and NULLified\n", __LOG_INFORMATION);
 }
 
 // Sub-task functions to print once logger instance is resolved.
