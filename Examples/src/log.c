@@ -10,11 +10,6 @@
 
 #include "log.h"
 
-#ifndef MAX_NUMBER_OF_LOG_INSTANCES
-  /** @brief No idea what this should be yet. */
-  #define MAX_NUMBER_OF_LOG_INSTANCES   10
-#endif
-
 static const char* __LOG_INFORMATION            = "#INFORMATION    --  ";
 static const char* __LOG_WARNING                = "#WARNING        --  ";
 static const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
