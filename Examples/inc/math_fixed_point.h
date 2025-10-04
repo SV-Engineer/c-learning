@@ -7,9 +7,7 @@
 #ifndef MATH_FIXED_POINT_H_
   #define MATH_FIXED_POINT_H_
 
-  #ifndef MFP_WORD_TYPE
-    #define MFP_WORD_TYPE       int32_t
-  #endif
+  #include <stdint.h>
 
   //! @brief How many binary points of precision (less than 1.0) the number will have (MSB is always sign bit).
   typedef enum {

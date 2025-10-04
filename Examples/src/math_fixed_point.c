@@ -6,6 +6,7 @@
 
 #include "math_fixed_point.h"
 
+#if RUN==4
 void mfp_convert(mfp_number_t* value, mfp_precision_t precision) {
   // In the case of equal, they bit-shift will be zero.
   if (value->q >= precision) {
@@ -18,3 +19,4 @@ void mfp_convert(mfp_number_t* value, mfp_precision_t precision) {
     value->q   = precision;
   }
 }
+#endif

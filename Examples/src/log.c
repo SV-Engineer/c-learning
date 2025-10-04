@@ -14,10 +14,10 @@
   #define MAX_NUMBER_OF_LOG_INSTANCES   10
 #endif
 
-const char* __LOG_INFORMATION            = "#INFORMATION    --  ";
-const char* __LOG_WARNING                = "#WARNING        --  ";
-const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
-const char* __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
+static const char* __LOG_INFORMATION            = "#INFORMATION    --  ";
+static const char* __LOG_WARNING                = "#WARNING        --  ";
+static const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
+static const char* __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
 
 // Forward declarations
 static void __log_information    (log_t* log, const char* data, int line_number);
