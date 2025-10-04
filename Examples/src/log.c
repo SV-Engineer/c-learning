@@ -7,6 +7,7 @@
  */
 
 #include <stdbool.h>
+
 #include "log.h"
 
 #ifndef MAX_NUMBER_OF_LOG_INSTANCES
@@ -44,7 +45,7 @@ static int             __latest_first_instance_id = -2;
 // Need to make sure the logging works.
 #if RUN==3
   int run(void) {
-    const char* MODULE_NAME = "RUN3A\0";
+    const char* MODULE_NAME = sprintf("RUN%0dA\0", RUN);
     CREATE_LOG_INSTANCE(MODULE_NAME);
 
     if (log != NULL) {
@@ -56,7 +57,7 @@ static int             __latest_first_instance_id = -2;
       LOG_I("Killing all log instances...");
       KILL_ALL_LOG_INSTANCES();
 
-      MODULE_NAME = "RUN3B\0";
+      MODULE_NAME = sprintf("RUN%0dB\0", RUN);
       CREATE_LOG_INSTANCE(MODULE_NAME);
       LOG_I("TEST I");
       LOG_W("TEST W");

@@ -81,7 +81,21 @@
 #endif /* LOG_H_ */
 
 /** @par  ATTENTION!!!
-          This is not in the header guard because it must be copied to each source file that includes it. Is this not all that great of a practice? Yes. Working within the limitations of C is difficult and sometimes we need to acknowledge that the way we want to implement something doesn't work well. This is a great example. I wanted to imitate object oriented programming and create dynamically allocated logging structures per module in C. As it turns out, I need to do some rather sketchy stuff to imitate OOP. This repository is for learning. So this ugliness stays as a reminder.
+ *         &nbsp;&nbsp;
+ *         This is not in the header guard because it must be copied to each source file that includes it. Is this not all that great of a practice? Yes.
+ *         Working within the limitations of C is difficult and sometimes we need to acknowledge that the way we want to implement something doesn't work
+ *         well. This is a great example. I wanted to imitate object oriented programming and create dynamically allocated logging structures per module in C.
+ *         As it turns out, I need to do some rather sketchy stuff to imitate OOP. This repository is for learning. So this ugliness stays as a
+ *         reminder. <br><br> &nbsp;&nbsp;
+ *
+ *         Also note the use of pragma to hide the warning of unused variables as some source files will not use the buffer and log. Not only is this is super 
+ *         inefficient, it reduces cross-compilation compatibility. If GNU is not used, this will throw a warning. Don't do this in production code. <br>
+ *
  */
-static log_t* log;
-static char log_buffer[256];
+#ifdef __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wunused-variable"
+  static log_t* log;
+  static char log_buffer[256];
+  #pragma GCC diagnostic pop
+#endif

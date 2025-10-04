@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 4.1.0)
-project(RUN C)
+project(
+    RUN C)
 
 file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Examples/src/*.c")
 # file(GLOB_RECURSE includes ./Examples/inc/*.h)
