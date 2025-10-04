@@ -52,4 +52,11 @@
     mfp_precision_t q;
   } mfp_number_t;
 
+  #define MFP_NUMBER_INIT_TO_ZERO          ((mfp_number_t) {.d=0, .q=E_MFP_32p00})
+
+  mfp_number_t mfp_float_to_fixed_point(float value, mfp_precision_t precision);
+  float mfp_fixed_point_to_float(mfp_number_t value);
+  void mfp_convert(mfp_number_t* value, mfp_precision_t precision);
+  mfp_number_t mfp_add(mfp_number_t A, mfp_number_t B);
+
 #endif /* MATH_FIXED_POINT_H_ */

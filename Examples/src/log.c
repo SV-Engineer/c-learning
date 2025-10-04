@@ -40,8 +40,8 @@ static int             __latest_first_instance_id = -2;
 // Need to make sure the logging works.
 #if RUN==3
   int run(void) {
-    const char* MODULE_NAME = sprintf("RUN%0dA\0", RUN);
-    CREATE_LOG_INSTANCE(MODULE_NAME);
+    // RUN 3-1
+    CREATE_LOG_INSTANCE("RUN%0d-1", RUN);
 
     if (log != NULL) {
       printf("%slog was NOT NULL\n", __LOG_INFORMATION);
@@ -52,8 +52,8 @@ static int             __latest_first_instance_id = -2;
       LOG_I("Killing all log instances...");
       KILL_ALL_LOG_INSTANCES();
 
-      MODULE_NAME = sprintf("RUN%0dB\0", RUN);
-      CREATE_LOG_INSTANCE(MODULE_NAME);
+    // RUN 3-2
+      CREATE_LOG_INSTANCE("RUN%0d-2", RUN);
       LOG_I("TEST I");
       LOG_W("TEST W");
       LOG_SE("TEST ES");

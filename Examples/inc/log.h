@@ -52,7 +52,9 @@
    */
 
   /** @ingroup log_api @{ */
-  #define CREATE_LOG_INSTANCE(N)     log = initialize_logger(((const char*) N))
+  #define CREATE_LOG_INSTANCE(...)    sprintf(log_buffer, __VA_ARGS__);                                     \
+                                      log = initialize_logger(((const char*) log_buffer));                  \
+                                      memset(log_buffer, 0, sizeof(log_buffer))
 
   /// @brief Delineation in logging
   #define LOG_D(...)                  memset(log_buffer, 0, sizeof(log_buffer));                            \
@@ -75,7 +77,9 @@
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->ERROR_CRITICAL(log, ((const char*) log_buffer), __LINE__)
 
-  #define KILL_ALL_LOG_INSTANCES     delete_all_logger_instances
+  #define KILL_ALL_LOG_INSTANCES      delete_all_logger_instances
+
+  #define CREATE_MODULE_NAME(...)     
   /** @} */
 
 #endif /* LOG_H_ */

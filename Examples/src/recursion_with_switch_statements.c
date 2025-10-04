@@ -25,7 +25,7 @@
   static __inline int __to_upper(char* c);
 
   int run (void) {
-    CREATE_LOG_INSTANCE("RSS\0");
+    CREATE_LOG_INSTANCE("RUN%0d", RUN);
     LOG_D("RUN#%0d - RECURSION WITH SWITCH STATEMENTS", RUN);
 
     bit_fields_t bit_fields = {0};
