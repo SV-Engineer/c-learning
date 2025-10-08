@@ -64,9 +64,6 @@
    */
 
   /** @ingroup log_api @{ */
-  #define CREATE_LOG_INSTANCE(...)    sprintf(log_buffer, __VA_ARGS__);                                     \
-                                      log = initialize_logger(((const char*) log_buffer));                  \
-                                      memset(log_buffer, 0, sizeof(log_buffer))
 
   /// @brief Delineation in logging
   #define LOG_D(...)                  memset(log_buffer, 0, sizeof(log_buffer));                            \
@@ -91,6 +88,11 @@
 
 
   #define KILL_ALL_LOG_INSTANCES(...) delete_all_logger_instances(log)
+
+  #define CREATE_LOG_INSTANCE(...)    sprintf(log_buffer, __VA_ARGS__);                                     \
+                                      log = initialize_logger(((const char*) log_buffer));                  \
+                                      LOG_D("Initialization done");                                         \
+                                      memset(log_buffer, 0, sizeof(log_buffer))
 
   /** @} */
 
