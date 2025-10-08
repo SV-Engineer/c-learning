@@ -9,6 +9,9 @@
 #include <stdbool.h>
 #include "log.h"
 
+
+#define DELINEATE_SPACING(...)                      printf("\n=================================================================\n")
+
 static const char*    __LOG_INFORMATION            = "#INFORMATION    --  ";
 static const char*    __LOG_WARNING                = "#WARNING        --  ";
 static const char*    __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
@@ -187,6 +190,7 @@ void delete_all_logger_instances(log_t* log) {
   }
 
   printf("%sAll Log instances freed and NULLified\n", __LOG_INFORMATION);
+  DELINEATE_SPACING();
 }
 
 // Sub-task functions to print once logger instance is resolved.
@@ -214,9 +218,9 @@ static void __log_critical_error(log_t* log, const char* data, int line_number) 
 
 // Prints some spacing and creates sections on the console
 static void __delineation(log_t* log, const char* data) {
-  printf("\n=================================================================\n");
+  DELINEATE_SPACING();
   printf("%s  --  %s\n", log->name, data);
-  printf("\n=================================================================\n");
+  DELINEATE_SPACING();
 }
 
 // Dumps info.
