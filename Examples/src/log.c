@@ -7,13 +7,13 @@
  */
 
 #include <stdbool.h>
-
 #include "log.h"
 
-static const char* __LOG_INFORMATION            = "#INFORMATION    --  ";
-static const char* __LOG_WARNING                = "#WARNING        --  ";
-static const char* __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
-static const char* __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
+static const char*    __LOG_INFORMATION            = "#INFORMATION    --  ";
+static const char*    __LOG_WARNING                = "#WARNING        --  ";
+static const char*    __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
+static const char*    __LOG_ERROR_CRITICAL         = "#ERROR_CRITICAL --  ";
+static log_counters_t __COUNTERS                   = LOG_COUNTERS_INITIALIZE;
 
 // Forward declarations
 static void __log_information    (log_t* log, const char* data, int line_number);
@@ -21,6 +21,7 @@ static void __log_warning        (log_t* log, const char* data, int line_number)
 static void __log_soft_error     (log_t* log, const char* data, int line_number);
 static void __log_critical_error (log_t* log, const char* data, int line_number);
 static void __delineation        (log_t* log, const char* data);
+static void __dump               (log_t* log);
 
 // FORWARD DECLARED DATA TYPE
 typedef struct LOG_LINKED_LINKED_LIST log_instances_t;
@@ -104,6 +105,7 @@ log_t* initialize_logger(const char* name) {
     log->WARNING        = (log_function_ptr_t)  &__log_warning;
     log->ERROR_SOFT     = (log_function_ptr_t)  &__log_soft_error;
     log->ERROR_CRITICAL = (log_function_ptr_t)  &__log_critical_error;
+    log->__COUNTERS     = (log_counters_t*)     &__COUNTERS;
 
 
     // TODO: What happens when the delete function is called and another instance is initialized?
@@ -143,15 +145,16 @@ log_t* initialize_logger(const char* name) {
   return log;
 }
 
-/** @fn void delete_all_logger_instances(void)
+/** @fn void delete_all_logger_instances(log_t* log)
  * @brief Deletes all logger instances.
  *
  * @return void
  */
-void delete_all_logger_instances(void) {
+void delete_all_logger_instances(log_t* log) {
   log_instances_t* list_ptr      = __log_instances;
 
   if (list_ptr != NULL) {
+    __dump(log);
     printf("%sList PTR is not NULL with ID: %0d\n", __LOG_INFORMATION, list_ptr->ID);
     // If only one instance was created, this will just point to itself and the while loop construct will never be entered.
     list_ptr = list_ptr->previous;
@@ -194,20 +197,31 @@ static void __log_information(log_t* log, const char* data, int line_number) {
 // Sub-task functions to print once logger instance is resolved.
 static void __log_warning(log_t* log, const char* data, int line_number) {
   printf("%s(%s - line#%0d)  --  %s\n", __LOG_WARNING, log->name, line_number, data);
+  log->__COUNTERS->__WARNINGS++;
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_soft_error(log_t* log, const char* data, int line_number) {
   printf("%s(%s - line#%0d)  --  %s\n", __LOG_ERROR_SOFT, log->name, line_number, data);
+  log->__COUNTERS->__ERRORS++;
 }
 
 // Sub-task functions to print once logger instance is resolved.
 static void __log_critical_error(log_t* log, const char* data, int line_number) {
   printf("%s(%s - line#%0d)  --  %s\n", __LOG_ERROR_CRITICAL, log->name, line_number, data);
+  log->__COUNTERS->__ERRORS++;
 }
 
+// Prints some spacing and creates sections on the console
 static void __delineation(log_t* log, const char* data) {
   printf("\n=================================================================\n");
   printf("%s  --  %s\n", log->name, data);
   printf("\n=================================================================\n");
+}
+
+// Dumps info. To simplify this, it has the same footprint as the others even though data input is not used.
+static void __dump(log_t* log) {
+  __delineation(log, "Run complete  --  Dumping Counts");
+  printf("  * ERROR   COUNT: %03d\n", log->__COUNTERS->__ERRORS);
+  printf("  * WARNING COUNT: %03d\n\n", log->__COUNTERS->__WARNINGS);
 }

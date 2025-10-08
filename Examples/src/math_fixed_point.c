@@ -20,6 +20,8 @@
 
     LOG_I("A.d=%0d  --  A.q=%0d and a=%03.5f", A.d, A.q, a);
 
+    KILL_ALL_LOG_INSTANCES();
+
     return 0;
   }
 #endif

@@ -16,6 +16,15 @@
     #define LOG_NAME_MAX_LENGTH         16
   #endif
 
+  /** @brief Counts for final log dump. */
+  typedef struct LOG_COUNTERS {
+    int __WARNINGS;
+    int __ERRORS;
+} log_counters_t;
+
+  /** @brief Counter initialization */
+  #define LOG_COUNTERS_INITIALIZE             (log_counters_t) {.__WARNINGS=0, .__ERRORS=0}
+
   // Forward declaration to resolve circular dependency.
   typedef struct LOG log_t;
 
@@ -31,6 +40,9 @@
     log_function_ptr_t  WARNING;
     log_function_ptr_t  ERROR_SOFT;
     log_function_ptr_t  ERROR_CRITICAL;
+    log_function_ptr_t  DUMP;
+    log_counters_t*     __COUNTERS;
+    
   } log_t;
 
   //! @brief Constant to subtract from a lower case ASCII character to make an upper case.
@@ -44,7 +56,7 @@
 
 
   log_t* initialize_logger(const char* name);
-  void   delete_all_logger_instances();
+  void   delete_all_logger_instances(log_t* log);
 
   /** @group log_api
    * @brief "API-Like" macros that expect a struct instance with symbol name "log"
@@ -77,7 +89,8 @@
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->ERROR_CRITICAL(log, ((const char*) log_buffer), __LINE__)
 
-  #define KILL_ALL_LOG_INSTANCES      delete_all_logger_instances
+
+  #define KILL_ALL_LOG_INSTANCES(...) delete_all_logger_instances(log)
 
   #define CREATE_MODULE_NAME(...)     
   /** @} */
