@@ -21,7 +21,7 @@ static void __log_warning        (log_t* log, const char* data, int line_number)
 static void __log_soft_error     (log_t* log, const char* data, int line_number);
 static void __log_critical_error (log_t* log, const char* data, int line_number);
 static void __delineation        (log_t* log, const char* data);
-static void __dump               (log_t* log);
+static void __dump               (log_counters_t* counters);
 
 // FORWARD DECLARED DATA TYPE
 typedef struct LOG_LINKED_LINKED_LIST log_instances_t;
@@ -154,7 +154,7 @@ void delete_all_logger_instances(log_t* log) {
   log_instances_t* list_ptr      = __log_instances;
 
   if (list_ptr != NULL) {
-    __dump(log);
+    __dump((log_counters_t*) &__COUNTERS);
     printf("%sList PTR is not NULL with ID: %0d\n", __LOG_INFORMATION, list_ptr->ID);
     // If only one instance was created, this will just point to itself and the while loop construct will never be entered.
     list_ptr = list_ptr->previous;
@@ -220,8 +220,9 @@ static void __delineation(log_t* log, const char* data) {
 }
 
 // Dumps info. To simplify this, it has the same footprint as the others even though data input is not used.
-static void __dump(log_t* log) {
-  __delineation(log, "Run complete  --  Dumping Counts");
-  printf("  * ERROR   COUNT: %03d\n", log->__COUNTERS->__ERRORS);
-  printf("  * WARNING COUNT: %03d\n\n", log->__COUNTERS->__WARNINGS);
+static void __dump(log_counters_t* counters) {
+  __delineation(log, "Run complete  --  
+  ing Counts");
+  printf("  * ERROR   COUNT: %03d\n", counters->__ERRORS);
+  printf("  * WARNING COUNT: %03d\n\n", counters->__WARNINGS);
 }
