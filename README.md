@@ -49,3 +49,9 @@ Initially it was just meant to enable formal logging, but `log.h` and its relate
 To compile and run use:
     > mkdir ./build && cd ./build && cmake .. -G "MinGW Makefiles" -DRUN=3 && mingw32-make && ./RUN.exe
 
+## Math Topic: Floating Point With No Dedicated Floating Point Unit (FPU) -- RUN=4
+Performant way of maintaining precision in math operations when no dedicated floating point hardware is available. See file `math_fixed_point.h` and its source.
+
+To compile and run use:
+    > mkdir ./build && cd ./build && cmake .. -G "MinGW Makefiles" -DRUN=4 && mingw32-make && ./RUN.exe
+
