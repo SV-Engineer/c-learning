@@ -16,6 +16,12 @@
     #define LOG_NAME_MAX_LENGTH         16
   #endif
 
+  /** @brief Counts for final log dump. */
+  typedef struct LOG_COUNTERS {
+    int __WARNINGS;
+    int __ERRORS;
+  } log_counters_t;
+
   /** @brief Counter initialization */
   #define LOG_COUNTERS_INITIALIZE             (log_counters_t) {.__WARNINGS=0, .__ERRORS=0}
 
@@ -34,6 +40,7 @@
     log_function_ptr_t  WARNING;
     log_function_ptr_t  ERROR_SOFT;
     log_function_ptr_t  ERROR_CRITICAL;
+    log_counters_t*     __COUNTERS;
   } log_t;
 
   //! @brief Constant to subtract from a lower case ASCII character to make an upper case.
