@@ -92,7 +92,6 @@
 
   #define KILL_ALL_LOG_INSTANCES(...) delete_all_logger_instances(log)
 
-  #define CREATE_MODULE_NAME(...)     
   /** @} */
 
 #endif /* LOG_H_ */
