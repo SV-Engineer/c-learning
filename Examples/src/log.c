@@ -9,6 +9,12 @@
 #include <stdbool.h>
 #include "log.h"
 
+/** @brief Counts for final log dump. */
+typedef struct LOG_COUNTERS {
+  int __WARNINGS;
+  int __ERRORS;
+} log_counters_t;
+
 static const char*    __LOG_INFORMATION            = "#INFORMATION    --  ";
 static const char*    __LOG_WARNING                = "#WARNING        --  ";
 static const char*    __LOG_ERROR_SOFT             = "#ERROR_SOFT     --  ";
