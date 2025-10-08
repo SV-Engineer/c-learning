@@ -219,7 +219,7 @@ static void __delineation(log_t* log, const char* data) {
   printf("\n=================================================================\n");
 }
 
-// Dumps info. To simplify this, it has the same footprint as the others even though data input is not used.
+// Dumps info.
 static void __dump(log_counters_t* counters) {
   __delineation(log, "Run complete  --  Dumping Counts");
   printf("  * ERROR   COUNT: %03d\n", counters->__ERRORS);
