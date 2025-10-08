@@ -11,8 +11,6 @@
 
 #include "main.h"
 
-int run (void);
-
 // There likely exist other, better, ways to do this, this is the first thing that came to mind.
 
 int main (int argc, char* argv[])
