@@ -13,7 +13,7 @@
   #include <stdint.h>
 
   #ifndef LOG_NAME_MAX_LENGTH
-    #define LOG_NAME_MAX_LENGTH         16
+    #define LOG_NAME_MAX_LENGTH         32
   #endif
 
   /** @brief Counts for final log dump. */
@@ -68,25 +68,31 @@
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->DELINEATE(log, ((const char*) log_buffer))
 
+  /// @brief Information logging
   #define LOG_I(...)                  memset(log_buffer, 0, sizeof(log_buffer));                            \
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->INFORMATION(log,((const char*) log_buffer), __LINE__)
 
+  /// @brief Warning logging
   #define LOG_W(...)                  memset(log_buffer, 0, sizeof(log_buffer));                            \
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->WARNING(log, ((const char*) log_buffer), __LINE__)
 
+  /// @brief Soft Error logging
   #define LOG_SE(...)                 memset(log_buffer, 0, sizeof(log_buffer));                            \
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->ERROR_SOFT(log, ((const char*) log_buffer), __LINE__)
 
+  /// @brief Critical Error logging
   #define LOG_CE(...)                 memset(log_buffer, 0, sizeof(log_buffer));                            \
                                       sprintf((char*) log_buffer, __VA_ARGS__);                             \
                                       log->ERROR_CRITICAL(log, ((const char*) log_buffer), __LINE__)
 
 
+  /// @brief Frees all malloc-ed log data structures
   #define KILL_ALL_LOG_INSTANCES(...) delete_all_logger_instances(log)
 
+  /// @brief Creates log data structures
   #define CREATE_LOG_INSTANCE(...)    sprintf(log_buffer, __VA_ARGS__);                                     \
                                       log = initialize_logger(((const char*) log_buffer));                  \
                                       LOG_D("Initialization done");                                         \
