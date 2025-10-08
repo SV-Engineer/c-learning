@@ -40,9 +40,7 @@
     log_function_ptr_t  WARNING;
     log_function_ptr_t  ERROR_SOFT;
     log_function_ptr_t  ERROR_CRITICAL;
-    log_function_ptr_t  DUMP;
     log_counters_t*     __COUNTERS;
-    
   } log_t;
 
   //! @brief Constant to subtract from a lower case ASCII character to make an upper case.
