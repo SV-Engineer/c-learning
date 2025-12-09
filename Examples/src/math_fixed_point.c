@@ -68,6 +68,22 @@ mfp_number_t mfp_add(mfp_number_t A, mfp_number_t B) {
   else {
     mfp_number_t result = MFP_NUMBER_INIT_TO_ZERO;
 
+    result.d = A.d+B.d;
+    result.q = A.q;
+    return result;
+  }
+}
+
+/** @brief Subtract one fixed point number from another (A-B) */
+mfp_number_t mfp_sub(mfp_number_t A, mfp_number_t B) {
+  if (A.q != B.q) {
+    LOG_SE("A.q (%0d) != B.q (%0d)", A.q, B.q);
+    LOG_I("Try making a call to mfp_convert to change the order of magnitude first");
+    return MFP_NUMBER_INIT_TO_ZERO;
+  }
+  else {
+    mfp_number_t result = MFP_NUMBER_INIT_TO_ZERO;
+
     result.d = A.d-B.d;
     result.q = A.q;
     return result;

@@ -58,5 +58,6 @@
   float mfp_fixed_point_to_float(mfp_number_t value);
   void mfp_convert(mfp_number_t* value, mfp_precision_t precision);
   mfp_number_t mfp_add(mfp_number_t A, mfp_number_t B);
+  mfp_number_t mfp_sub(mfp_number_t A, mfp_number_t B);
 
 #endif /* MATH_FIXED_POINT_H_ */
