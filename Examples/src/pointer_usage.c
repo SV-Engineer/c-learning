@@ -39,13 +39,13 @@
 void pu_print(primitive_types_t T, void* d) {
   switch (T) {
     case(E_INT8):
-      printf("Printing T=E_INT8    => %10d (decimal)  --  0x%08x (hex)\n", *(int8_t*)d, *(uint8_t*)d);
+      printf("Printing T=E_INT8    => %10d (decimal)  --  0x%08x (hex)\n", *(int8_t*)d, *(int8_t*)d);
       break;
     case(E_INT16):
-      printf("Printing T=E_INT16   => %10d (decimal)  --  0x%08x (hex)\n", *(int16_t*)d, *(uint16_t*)d);
+      printf("Printing T=E_INT16   => %10d (decimal)  --  0x%08x (hex)\n", *(int16_t*)d, *(int16_t*)d);
       break;
     case(E_INT32):
-      printf("Printing T=E_INT32   => %10d (decimal)  --  0x%08x (hex)\n", *(int32_t*)d, *(uint32_t*)d);
+      printf("Printing T=E_INT32   => %10d (decimal)  --  0x%08x (hex)\n", *(int32_t*)d, *(int32_t*)d);
       break;
     case(E_UINT8):
       printf("Printing T=E_UINT8   => %10d (decimal)  --  0x%08x (hex)\n", *(uint8_t*)d, *(uint8_t*)d);
