@@ -24,17 +24,17 @@ typedef enum{
   E_DOUBLE
 } primitive_types_t;
 
-#define PU_LOG_INT8(X)        pu_print(E_INT8,   (void*)&X)
-#define PU_LOG_INT16(X)       pu_print(E_INT16,  (void*)&X)
-#define PU_LOG_INT32(X)       pu_print(E_INT32,  (void*)&X)
-#define PU_LOG_UINT8(X)       pu_print(E_UINT8,  (void*)&X)
-#define PU_LOG_UINT16(X)      pu_print(E_UINT16, (void*)&X)
-#define PU_LOG_UINT32(X)      pu_print(E_UINT32, (void*)&X)
-#define PU_LOG_FLOAT(X)       pu_print(E_FLOAT,  (void*)&X)
-#define PU_LOG_DOUBLE(X)      pu_print(E_DOUBLE, (void*)&X)
-
-
 /** @brief Casts a simple data type to void pointer */
 #define CAST_PRIMITIVE_TO_VOID_PTR(X)         (void*) &X
+
+#define PU_LOG_INT8(X)        pu_print(E_INT8,   CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_INT16(X)       pu_print(E_INT16,  CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_INT32(X)       pu_print(E_INT32,  CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_UINT8(X)       pu_print(E_UINT8,  CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_UINT16(X)      pu_print(E_UINT16, CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_UINT32(X)      pu_print(E_UINT32, CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_FLOAT(X)       pu_print(E_FLOAT,  CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_LOG_DOUBLE(X)      pu_print(E_DOUBLE, CAST_PRIMITIVE_TO_VOID_PTR(X))
+
 
 void pu_print(primitive_types_t T, void* d);
