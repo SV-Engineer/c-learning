@@ -8,7 +8,7 @@
         #define RECURSION_WITH_SWITCH_STATEMENTS_H_
 
         #include <stdint.h>
-        #include "log.h"
+        #include "console.h"
 
         typedef union BIT_FIELDS {
             uint32_t w[2];

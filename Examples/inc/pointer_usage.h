@@ -8,7 +8,7 @@
   #ifndef POINTER_USAGE_H_
     #define POINTER_USAGE_H_
     #include <stdint.h>
-    #include "log.h"
+    #include "console.h"
   #endif /* POINTER_USAGE_H_ */
 #endif /* RUN==2*/
 
@@ -34,7 +34,7 @@ typedef enum{
 #define PU_LOG_UINT16(X)      pu_print(E_UINT16, CAST_PRIMITIVE_TO_VOID_PTR(X))
 #define PU_LOG_UINT32(X)      pu_print(E_UINT32, CAST_PRIMITIVE_TO_VOID_PTR(X))
 #define PU_LOG_FLOAT(X)       pu_print(E_FLOAT,  CAST_PRIMITIVE_TO_VOID_PTR(X))
-#define PU_LOG_DOUBLE(X)      pu_print(E_DOUBLE, CAST_PRIMITIVE_TO_VOID_PTR(X))
+#define PU_CONSOLE_DOUBLE(X)      pu_print(E_DOUBLE, CAST_PRIMITIVE_TO_VOID_PTR(X))
 
 
 void pu_print(primitive_types_t T, void* d);

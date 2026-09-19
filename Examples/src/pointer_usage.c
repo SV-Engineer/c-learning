@@ -9,7 +9,7 @@
 #include "pointer_usage.h"
 
 #if RUN==2
-    #include "log.h"
+    #include "console.h"
 
     int run (void) {
 
@@ -29,7 +29,7 @@
       PU_LOG_UINT16(var_uint16_t);
       PU_LOG_UINT32(var_uint32_t);
       PU_LOG_FLOAT(var_float);
-      PU_LOG_DOUBLE(var_double);
+      PU_CONSOLE_DOUBLE(var_double);
       return 0;
     }
 

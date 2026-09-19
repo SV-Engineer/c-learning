@@ -7,7 +7,7 @@
 #if RUN==1
   #include <stdint.h>
   #include <stdio.h>
-  #include "log.h"
+  #include "console.h"
   #include "recursion_with_switch_statements.h"
 
   #define NUM_INPUTS 6
@@ -25,8 +25,8 @@
   static __inline int __to_upper(char* c);
 
   int run (void) {
-    CREATE_LOG_INSTANCE("RUN%0d", RUN);
-    LOG_D("RUN#%0d - RECURSION WITH SWITCH STATEMENTS", RUN);
+    CREATE_CONSOLE_INSTANCE("RUN%0d", RUN);
+    CONSOLE_D("RUN#%0d - RECURSION WITH SWITCH STATEMENTS", RUN);
 
     bit_fields_t bit_fields = {0};
 
@@ -37,7 +37,7 @@
     // The data structure is reset to 0 and each iteration post '1' shows only the bit-field in use set.
     for (int i = 0; i < NUM_INPUTS; i++) {
       
-      LOG_D("Iteration: %0d", i+1);
+      CONSOLE_D("Iteration: %0d", i+1);
       modify_multiple_fields(FN_INPUTS[i], (bit_fields_t*) &bit_fields);
       log_bit_fields((bit_fields_t*) &bit_fields);
 
@@ -46,7 +46,7 @@
       bit_fields.w[1] = 0;
     }
 
-    KILL_ALL_LOG_INSTANCES();
+    KILL_ALL_CONSOLE_INSTANCES();
     return 0;
   }
 
@@ -65,7 +65,7 @@
     char sel = selection;
 
     if (__to_upper((char*) &sel) > -1) {
-      LOG_I("%c input in use", sel);
+      CONSOLE_I("%c input in use", sel);
       switch (sel) {
         case 'S': // Set All bitfields
           modify_multiple_fields('A', bit_fields);
@@ -96,18 +96,18 @@
           break;
         
         default:
-          LOG_I("%c is an invalid input to modify_multiple_fields function", sel);
+          CONSOLE_I("%c is an invalid input to modify_multiple_fields function", sel);
           break;
       }
     }
   }
 
   void log_bit_fields (bit_fields_t* bit_fields) {
-    LOG_I("BITFIELD A == 0x%04x", bit_fields->b.A);
-    LOG_I("BITFIELD B == 0x%04x", bit_fields->b.B);
-    LOG_I("BITFIELD C == 0x%04x", bit_fields->b.C);
-    LOG_I("BITFIELD D == 0x%04x", bit_fields->b.D);
-    LOG_I("BITFIELD E == 0x%04x", bit_fields->b.E);
+    CONSOLE_I("BITFIELD A == 0x%04x", bit_fields->b.A);
+    CONSOLE_I("BITFIELD B == 0x%04x", bit_fields->b.B);
+    CONSOLE_I("BITFIELD C == 0x%04x", bit_fields->b.C);
+    CONSOLE_I("BITFIELD D == 0x%04x", bit_fields->b.D);
+    CONSOLE_I("BITFIELD E == 0x%04x", bit_fields->b.E);
   }
 
 #endif /* RUN == 1*/
